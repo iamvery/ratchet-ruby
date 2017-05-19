@@ -1,14 +1,10 @@
 require 'temple'
+require 'ratchet/html_parser'
 
 module Ratchet
-  class NaiveParser < Temple::Parser
-    def call(string)
-      [:static, string]
-    end
-  end
-
   class Engine < Temple::Engine
-    use NaiveParser
+    use HtmlParser
+    use Temple::HTML::Fast
     generator :ArrayBuffer
   end
 end

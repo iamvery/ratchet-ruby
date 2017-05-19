@@ -1,7 +1,8 @@
 require 'ox'
+require 'temple'
 
 module Ratchet
-  class HtmlParser
+  class HtmlParser < Temple::Parser
     def call(html)
       document = Ox.parse(html)
       parse(document)
