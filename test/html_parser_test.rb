@@ -19,6 +19,29 @@ class HtmlParserTest < Minitest::Test
     )
   end
 
+  def test_parsing_attributes
+    assert_parsed(
+      '<div class="small">Hello, World.</div>',
+      [
+        :html, :tag, 'div',
+        [
+          :html, :attrs,
+          [
+            :multi,
+            [
+              :html, :attr, :class,
+              [:static, 'small'],
+            ],
+          ],
+        ],
+        [
+          :multi,
+          [:static, 'Hello, World.']
+        ]
+      ],
+    )
+  end
+
   private
 
   def assert_parsed(html, expected)

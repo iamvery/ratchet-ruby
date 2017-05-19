@@ -23,9 +23,15 @@ module Ratchet
         :html,
         :tag,
         element.value,
-        [:html, :attrs, [:multi]],
-        [:multi],
+        [:html, :attrs, parse_attributes(element.attributes)],
+        [:multi, *element.nodes.map(&method(:parse))],
       ]
+    end
+
+    def parse_attributes(attributes)
+      attributes.reduce([:multi]) { |attrs, (name, value)|
+        attrs << [:html, :attr, name, [:static, value]]
+      }
     end
   end
 end
