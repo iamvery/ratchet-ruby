@@ -9,6 +9,13 @@ class ParserTest < Minitest::Test
     )
   end
 
+  def test_basic_property
+    assert_parsed(
+      '<div data-prop="title">Hello</div>',
+      [:bolt, 'title', 'div'],
+    )
+  end
+
   private
 
   def assert_parsed(source, expected)

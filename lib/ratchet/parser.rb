@@ -2,6 +2,8 @@ require 'ox'
 
 module Ratchet
   class Parser
+    PROPERTY_ATTRIBUTE = :'data-prop'
+
     def call(source)
       document = Ox.parse(source)
       parse(document)
@@ -18,7 +20,16 @@ module Ratchet
     end
 
     def parse_element(element)
-      html(element)
+      property = element.attributes[PROPERTY_ATTRIBUTE]
+      if property
+        bolt(element, property)
+      else
+        html(element)
+      end
+    end
+
+    def bolt(element, property)
+      [:bolt, property, element.value]
     end
 
     def html(element)
