@@ -1,7 +1,8 @@
 require 'ox'
+require 'temple'
 
 module Ratchet
-  class Parser
+  class Parser < Temple::Parser
     PROPERTY_ATTRIBUTE = :'data-prop'
 
     def call(source)

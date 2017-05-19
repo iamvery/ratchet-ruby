@@ -1,9 +1,11 @@
 require 'temple'
-require 'ratchet/html_parser'
+require 'ratchet/parser'
+require 'ratchet/transformer'
 
 module Ratchet
   class Engine < Temple::Engine
-    use HtmlParser
+    use Parser
+    use Transformer
     use Temple::HTML::Fast
     generator :ArrayBuffer
   end
