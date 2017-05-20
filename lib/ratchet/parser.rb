@@ -30,7 +30,10 @@ module Ratchet
     end
 
     def bolt(element, property)
-      [:bolt, :tag, property, element.value]
+      [
+        :bolt, :tag, property, element.value,
+        [:bolt, :attrs, element.attributes],
+      ]
     end
 
     def html(element)
