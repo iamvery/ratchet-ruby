@@ -15,6 +15,6 @@ class TemplateTest < Minitest::Test
   def test_replaces_tag_content
     source = '<div data-prop="title">An Title</div>'
     output = render(source, 'title' => 'Ratchet')
-    assert_equal '<div>Ratchet</div>', output
+    assert_equal '<div data-prop="title">Ratchet</div>', output
   end
 end

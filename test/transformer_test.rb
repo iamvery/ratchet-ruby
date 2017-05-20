@@ -4,7 +4,7 @@ require 'ratchet/transformer'
 class TransformerTest < Minitest::Test
   def test_content_transformation
     assert_transformed(
-      [:bolt, :tag, 'title', 'div'],
+      [:bolt, :tag, 'title', 'div', [:multi]],
       [
         :html, :tag, 'div',
         [:multi],
