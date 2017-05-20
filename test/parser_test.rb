@@ -12,7 +12,7 @@ class ParserTest < Minitest::Test
   def test_basic_property
     assert_parsed(
       '<div data-prop="title">Hello</div>',
-      [:bolt, 'title', 'div'],
+      [:bolt, :tag, 'title', 'div'],
     )
   end
 
