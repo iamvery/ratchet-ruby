@@ -13,6 +13,17 @@ class TransformerTest < Minitest::Test
     )
   end
 
+  def test_attribute_preservation
+    assert_transformed(
+      [:bolt, :tag, 'title', 'div', [:bolt, :attrs, { foo: 'bar' }]],
+      [
+        :html, :tag, 'div',
+        [:html, :attrs, [:multi, [:html, :attr, :foo, [:static, 'bar']]]],
+        [:dynamic, 'self["title"]'],
+      ],
+    )
+  end
+
   private
 
   def assert_transformed(source, expected)
