@@ -18,4 +18,13 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+
+  spec.add_dependency 'ox' # fast XML parser
+  spec.add_dependency 'temple' # abstraction and framework for compiling templates to pure Ruby
+  spec.add_dependency 'tilt' # interface of Ruby template engines
+
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rake'
 end
