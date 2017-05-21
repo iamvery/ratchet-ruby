@@ -2,11 +2,11 @@ require 'temple'
 
 module Ratchet
   class Transformer < Temple::Filter
-    def on_bolt_tag(property, tag, attributes)
+    def on_bolt_tag(property, tag, attributes, children)
       [
         :html, :tag, tag,
         compile(attributes),
-        [:dynamic, "self[#{property.inspect}]"],
+        property ? [:dynamic, "self[#{property.inspect}]"] : compile(children),
       ]
     end
 
