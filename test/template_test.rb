@@ -7,7 +7,7 @@ class TemplateTest < Minitest::Test
   end
 
   def test_renders_basic_html
-    source = '<div>Hello, World.</div>'
+    source = '<div class="greet">Hello, World.</div>'
     output = render(source)
     assert_equal source, output
   end
