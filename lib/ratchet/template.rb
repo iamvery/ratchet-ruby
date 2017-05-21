@@ -7,6 +7,7 @@ module Ratchet
   if defined?(::ActionView)
     RailsTemplate = Temple::Templates::Rails(
       Engine,
+      register_as: :nut,
       generator: Temple::Generators::RailsOutputBuffer,
     )
   end
