@@ -22,24 +22,13 @@ module Ratchet
 
     def parse_element(element)
       property = element.attributes[PROPERTY_ATTRIBUTE]
-      if property
-        bolt(element, property)
-      else
-        html(element)
-      end
+      bolt(element, property)
     end
 
     def bolt(element, property)
       [
         :bolt, :tag, property, element.value,
         [:bolt, :attrs, element.attributes],
-      ]
-    end
-
-    def html(element)
-      [
-        :html, :tag, element.value,
-        [:multi],
         [:multi, *element.nodes.map(&method(:parse))],
       ]
     end

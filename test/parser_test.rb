@@ -5,7 +5,11 @@ class ParserTest < Minitest::Test
   def test_basic_html
     assert_parsed(
       '<div>Hello</div>',
-      [:html, :tag, 'div', [:multi], [:multi, [:static, 'Hello']]],
+      [
+        :bolt, :tag, nil, 'div',
+        [:bolt, :attrs, {}],
+        [:multi, [:static, 'Hello']],
+      ],
     )
   end
 
@@ -15,6 +19,7 @@ class ParserTest < Minitest::Test
       [
         :bolt, :tag, 'title', 'div',
         [:bolt, :attrs, { 'data-prop': 'title' }],
+        [:multi, [:static, 'Hello']],
       ],
     )
   end
