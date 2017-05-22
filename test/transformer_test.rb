@@ -8,7 +8,7 @@ class TransformerTest < Minitest::Test
       [
         :html, :tag, 'div',
         [:multi],
-        [:dynamic, 'self["title"]'],
+        [:dynamic, 'data["title"]'],
       ],
     )
   end

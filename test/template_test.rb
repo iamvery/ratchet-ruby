@@ -2,7 +2,10 @@ require 'helper'
 require 'ratchet/template'
 
 class TemplateTest < Minitest::Test
-  def render(source, context = nil)
+  Context = Struct.new(:data)
+
+  def render(source, data = nil)
+    context = Context.new(data)
     Ratchet::Template.new { source }.render(context)
   end
 
