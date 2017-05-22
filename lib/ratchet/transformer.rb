@@ -3,11 +3,11 @@ require 'temple'
 module Ratchet
   class Transformer < Temple::Filter
     def on_nut_tag(property, tag, attributes, children)
-      [
-        :html, :tag, tag,
+      build_html_tag(
+        tag,
         compile(attributes),
         property ? [:dynamic, "data[#{property.inspect}]"] : compile(children),
-      ]
+      )
     end
 
     def on_nut_attrs(attributes)
@@ -15,6 +15,10 @@ module Ratchet
     end
 
     private
+
+    def build_html_tag(name, attributes, children)
+      [:html, :tag, name, attributes, children]
+    end
 
     def build_html_attrs(attributes)
       attributes.reduce([:multi]) { |attrs, (attr, value)|
