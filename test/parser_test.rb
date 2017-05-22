@@ -6,8 +6,8 @@ class ParserTest < Minitest::Test
     assert_parsed(
       '<div>Hello</div>',
       [
-        :bolt, :tag, nil, 'div',
-        [:bolt, :attrs, {}],
+        :nut, :tag, nil, 'div',
+        [:nut, :attrs, {}],
         [:multi, [:static, 'Hello']],
       ],
     )
@@ -17,8 +17,8 @@ class ParserTest < Minitest::Test
     assert_parsed(
       '<div data-prop="title">Hello</div>',
       [
-        :bolt, :tag, 'title', 'div',
-        [:bolt, :attrs, { 'data-prop': 'title' }],
+        :nut, :tag, 'title', 'div',
+        [:nut, :attrs, { 'data-prop': 'title' }],
         [:multi, [:static, 'Hello']],
       ],
     )

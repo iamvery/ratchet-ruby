@@ -2,7 +2,7 @@ require 'temple'
 
 module Ratchet
   class Transformer < Temple::Filter
-    def on_bolt_tag(property, tag, attributes, children)
+    def on_nut_tag(property, tag, attributes, children)
       [
         :html, :tag, tag,
         compile(attributes),
@@ -10,7 +10,7 @@ module Ratchet
       ]
     end
 
-    def on_bolt_attrs(attributes)
+    def on_nut_attrs(attributes)
       [:html, :attrs, build_html_attrs(attributes)]
     end
 
