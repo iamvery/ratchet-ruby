@@ -9,6 +9,6 @@ module Ratchet
     use Parser
     use Transformer
     use Temple::HTML::Fast
-    use(:Generator) { options[:generator] }
+    use(:generator) { options[:generator] }
   end
 end
