@@ -42,6 +42,44 @@ class ParserTest < Minitest::Test
     )
   end
 
+  def test_mixed_properties
+    assert_parsed(
+      <<-HTML,
+        <ul>
+          <li data-prop="post">
+            <div><span data-prop="title"></span></div>
+          </li>
+        </ul>
+      HTML
+      [
+        :nut, :tag, :data, nil, 'ul',
+        [:nut, :attrs, {}],
+        [
+          :multi,
+          [
+            :nut, :tag, :data, 'post', 'li',
+            [:nut, :attrs, { 'data-prop': 'post' }],
+            [
+              :multi,
+              [
+                :nut, :tag, 'post', nil, 'div',
+                [:nut, :attrs, {}],
+                [
+                  :multi,
+                  [
+                    :nut, :tag, 'post', 'title', 'span',
+                    [:nut, :attrs, { 'data-prop': 'title' }],
+                    [:multi],
+                  ],
+                ]
+              ],
+            ],
+          ],
+        ],
+      ],
+    )
+  end
+
   private
 
   def assert_parsed(source, expected)

@@ -27,10 +27,11 @@ module Ratchet
     end
 
     def nut(element, scope, property)
+      new_scope = property ? property : scope
       [
         :nut, :tag, scope, property, element.value,
         [:nut, :attrs, element.attributes],
-        [:multi, *element.nodes.map { |e| parse(e, property) }],
+        [:multi, *element.nodes.map { |e| parse(e, new_scope) }],
       ]
     end
   end
