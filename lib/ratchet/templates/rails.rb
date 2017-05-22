@@ -5,7 +5,7 @@ module Ratchet
   module Templates
     Rails = Temple::Templates::Rails(
       Engine,
-      register_as: :nut,
+      register_as: :bolt,
       generator: Temple::Generators::RailsOutputBuffer,
     )
   end

@@ -4,7 +4,7 @@ require 'ratchet/transformer'
 class TransformerTest < Minitest::Test
   def test_content_transformation
     assert_transformed(
-      [:bolt, :tag, 'title', 'div', [:multi], [:multi]],
+      [:nut, :tag, 'title', 'div', [:multi], [:multi]],
       [
         :html, :tag, 'div',
         [:multi],
@@ -15,7 +15,7 @@ class TransformerTest < Minitest::Test
 
   def test_attribute_preservation
     assert_transformed(
-      [:bolt, :tag, nil, 'div', [:bolt, :attrs, { foo: 'bar' }], [:multi]],
+      [:nut, :tag, nil, 'div', [:nut, :attrs, { foo: 'bar' }], [:multi]],
       [
         :html, :tag, 'div',
         [:html, :attrs, [:multi, [:html, :attr, :foo, [:static, 'bar']]]],
