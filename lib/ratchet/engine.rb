@@ -4,9 +4,11 @@ require 'ratchet/transformer'
 
 module Ratchet
   class Engine < Temple::Engine
+    define_options(generator: Temple::Generators::ArrayBuffer)
+
     use Parser
     use Transformer
     use Temple::HTML::Fast
-    generator :ArrayBuffer
+    use(:generator) { options[:generator] }
   end
 end

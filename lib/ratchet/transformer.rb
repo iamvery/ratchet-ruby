@@ -6,7 +6,7 @@ module Ratchet
       [
         :html, :tag, tag,
         compile(attributes),
-        property ? [:dynamic, "self[#{property.inspect}]"] : compile(children),
+        property ? [:dynamic, "data[#{property.inspect}]"] : compile(children),
       ]
     end
 
