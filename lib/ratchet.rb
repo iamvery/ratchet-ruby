@@ -1,1 +1,1 @@
-require 'ratchet/template'
+require 'ratchet/templates/rails'

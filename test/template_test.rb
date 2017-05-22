@@ -1,12 +1,12 @@
 require 'helper'
-require 'ratchet/template'
+require 'ratchet/templates/tilt'
 
 class TemplateTest < Minitest::Test
   Context = Struct.new(:data)
 
   def render(source, data = nil)
     context = Context.new(data)
-    Ratchet::Template.new { source }.render(context)
+    Ratchet::Templates::Tilt.new { source }.render(context)
   end
 
   def test_renders_basic_html
