@@ -2,11 +2,11 @@ require 'temple'
 
 module Ratchet
   class Transformer < Temple::Filter
-    def on_nut_tag(property, tag, attributes, children)
+    def on_nut_tag(scope, property, tag, attributes, children)
       build_html_tag(
         tag,
         compile(attributes),
-        property ? [:dynamic, "data[#{property.inspect}]"] : compile(children),
+        property ? [:dynamic, "#{scope}[#{property.inspect}]"] : compile(children),
       )
     end
 
