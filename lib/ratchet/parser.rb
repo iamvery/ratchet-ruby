@@ -13,8 +13,9 @@ module Ratchet
     PROPERTY_ATTRIBUTE = 'data-prop'.freeze
 
     def call(source)
+      source = "<wrapper>#{source}</wrapper>"
       document = Ox.parse(source)
-      parse(document)
+      [:multi, *document.nodes.map(&method(:parse))]
     end
 
     private

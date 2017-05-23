@@ -5,21 +5,32 @@ class ParserTest < Minitest::Test
   def test_basic_html
     assert_parsed(
       '<div>Hello</div>',
-      [
+      [:multi, [
         :nut, :tag, :data, nil, 'div',
         [:nut, :attrs, {}],
         [:multi, [:static, 'Hello']],
-      ],
+      ]],
     )
   end
 
   def test_comment
     assert_parsed(
       '<div><!-- comment --></div>',
-      [
+      [:multi, [
         :nut, :tag, :data, nil, 'div',
         [:nut, :attrs, {}],
         [:multi, [:html, :comment, [:static, 'comment']]],
+      ]],
+    )
+  end
+
+  def test_fragment
+    assert_parsed(
+      '<div>first</div><div>second</div>',
+      [
+        :multi,
+        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, {}], [:multi, [:static, 'first']]],
+        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, {}], [:multi, [:static, 'second']]],
       ],
     )
   end
@@ -27,32 +38,32 @@ class ParserTest < Minitest::Test
   def test_self_closing
     assert_parsed(
       '<div><img></div>',
-      [
+      [:multi, [
         :nut, :tag, :data, nil, 'div',
         [:nut, :attrs, {}],
         [
           :multi,
           [:nut, :tag, :data, nil, 'img', [:nut, :attrs, {}], [:multi]],
         ],
-      ],
+      ]],
     )
   end
 
   def test_basic_property
     assert_parsed(
       '<div data-prop="title">Hello</div>',
-      [
+      [:multi, [
         :nut, :tag, :data, 'title', 'div',
         [:nut, :attrs, { 'data-prop' => 'title' }],
         [:multi, [:static, 'Hello']],
-      ],
+      ]],
     )
   end
 
   def test_nested_property
     assert_parsed(
       '<div data-prop="post"><span data-prop="title"></span></div>',
-      [
+      [:multi, [
         :nut, :tag, :data, 'post', 'div',
         [:nut, :attrs, { 'data-prop' => 'post' }],
         [
@@ -63,7 +74,7 @@ class ParserTest < Minitest::Test
             [:multi],
           ],
         ],
-      ],
+      ]],
     )
   end
 
@@ -76,7 +87,7 @@ class ParserTest < Minitest::Test
           </li>
         </ul>
       HTML
-      [
+      [:multi, [
         :nut, :tag, :data, nil, 'ul',
         [:nut, :attrs, {}],
         [
@@ -101,7 +112,7 @@ class ParserTest < Minitest::Test
             ],
           ],
         ],
-      ],
+      ]],
     )
   end
 
