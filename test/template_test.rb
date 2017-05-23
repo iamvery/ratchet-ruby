@@ -38,4 +38,10 @@ class TemplateTest < Minitest::Test
     output = render(source, 'foo' => '<span>hacked!</span>')
     assert_equal '<div data-prop="foo">&lt;span&gt;hacked!&lt;/span&gt;</div>', output
   end
+
+  def test_comment
+    source = '<div><!--comment--></div>'
+    output = render(source)
+    assert_equal source, output
+  end
 end

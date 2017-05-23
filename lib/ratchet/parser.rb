@@ -16,6 +16,8 @@ module Ratchet
     def parse(element, scope = DEFAULT_SCOPE)
       if element.is_a?(Ox::Element)
         parse_element(element, scope)
+      elsif element.is_a?(Ox::Comment)
+        [:html, :comment, [:static, element.value]]
       else
         [:static, element]
       end

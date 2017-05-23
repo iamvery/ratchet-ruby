@@ -13,6 +13,17 @@ class ParserTest < Minitest::Test
     )
   end
 
+  def test_comment
+    assert_parsed(
+      '<div><!-- comment --></div>',
+      [
+        :nut, :tag, :data, nil, 'div',
+        [:nut, :attrs, {}],
+        [:multi, [:html, :comment, [:static, 'comment']]],
+      ],
+    )
+  end
+
   def test_basic_property
     assert_parsed(
       '<div data-prop="title">Hello</div>',
