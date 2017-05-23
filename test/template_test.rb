@@ -26,4 +26,10 @@ class TemplateTest < Minitest::Test
     output = render(source, 'post' => { 'title' => 'Ratchet' })
     assert_equal '<div data-prop="post"><span data-prop="title">Ratchet</span></div>', output
   end
+
+  def test_iteration
+    source = '<div data-prop="items">An Item</div>'
+    output = render(source, 'items' => ['first', 'second'])
+    assert_equal '<div data-prop="items">first</div><div data-prop="items">second</div>', output
+  end
 end
