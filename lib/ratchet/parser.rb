@@ -1,10 +1,16 @@
 require 'ox'
 require 'temple'
 
+Ox.default_options = {
+  mode: :generic,
+  effort: :tolerant,
+  smart: true,
+}
+
 module Ratchet
   class Parser < Temple::Parser
     DEFAULT_SCOPE = :data
-    PROPERTY_ATTRIBUTE = :'data-prop'
+    PROPERTY_ATTRIBUTE = 'data-prop'.freeze
 
     def call(source)
       document = Ox.parse(source)

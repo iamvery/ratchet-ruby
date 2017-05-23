@@ -24,12 +24,26 @@ class ParserTest < Minitest::Test
     )
   end
 
+  def test_self_closing
+    assert_parsed(
+      '<div><img></div>',
+      [
+        :nut, :tag, :data, nil, 'div',
+        [:nut, :attrs, {}],
+        [
+          :multi,
+          [:nut, :tag, :data, nil, 'img', [:nut, :attrs, {}], [:multi]],
+        ],
+      ],
+    )
+  end
+
   def test_basic_property
     assert_parsed(
       '<div data-prop="title">Hello</div>',
       [
         :nut, :tag, :data, 'title', 'div',
-        [:nut, :attrs, { 'data-prop': 'title' }],
+        [:nut, :attrs, { 'data-prop' => 'title' }],
         [:multi, [:static, 'Hello']],
       ],
     )
@@ -40,12 +54,12 @@ class ParserTest < Minitest::Test
       '<div data-prop="post"><span data-prop="title"></span></div>',
       [
         :nut, :tag, :data, 'post', 'div',
-        [:nut, :attrs, { 'data-prop': 'post' }],
+        [:nut, :attrs, { 'data-prop' => 'post' }],
         [
           :multi,
           [
             :nut, :tag, 'post', 'title', 'span',
-            [:nut, :attrs, { 'data-prop': 'title' }],
+            [:nut, :attrs, { 'data-prop' => 'title' }],
             [:multi],
           ],
         ],
@@ -69,7 +83,7 @@ class ParserTest < Minitest::Test
           :multi,
           [
             :nut, :tag, :data, 'post', 'li',
-            [:nut, :attrs, { 'data-prop': 'post' }],
+            [:nut, :attrs, { 'data-prop' => 'post' }],
             [
               :multi,
               [
@@ -79,7 +93,7 @@ class ParserTest < Minitest::Test
                   :multi,
                   [
                     :nut, :tag, 'post', 'title', 'span',
-                    [:nut, :attrs, { 'data-prop': 'title' }],
+                    [:nut, :attrs, { 'data-prop' => 'title' }],
                     [:multi],
                   ],
                 ]
