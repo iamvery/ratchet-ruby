@@ -32,4 +32,10 @@ class TemplateTest < Minitest::Test
     output = render(source, 'items' => ['first', 'second'])
     assert_equal '<div data-prop="items">first</div><div data-prop="items">second</div>', output
   end
+
+  def test_escaping
+    source = '<div data-prop="foo"></div>'
+    output = render(source, 'foo' => '<span>hacked!</span>')
+    assert_equal '<div data-prop="foo">&lt;span&gt;hacked!&lt;/span&gt;</div>', output
+  end
 end

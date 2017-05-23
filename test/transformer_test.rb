@@ -16,7 +16,7 @@ class TransformerTest < Minitest::Test
             [:code, 'if title.is_a?(Hash) or title.nil?'],
             [:static, 'Title'],
             [:code, 'else'],
-            [:dynamic, 'title'],
+            [:escape, true, [:dynamic, 'title']],
             [:code, 'end'],
           ],
         ],
