@@ -24,6 +24,17 @@ class ParserTest < Minitest::Test
     )
   end
 
+  def test_fragment
+    assert_parsed(
+      '<div>first</div><div>second</div>',
+      [
+        :multi,
+        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, {}], [:multi, [:static, 'first']]],
+        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, {}], [:multi, [:static, 'second']]],
+      ],
+    )
+  end
+
   def test_self_closing
     assert_parsed(
       '<div><img></div>',
