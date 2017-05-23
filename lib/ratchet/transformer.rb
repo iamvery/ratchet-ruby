@@ -25,11 +25,11 @@ module Ratchet
           compile(attributes),
           [
             :multi,
-            [:code, "if #{property}.is_a?(Hash) or #{property}.nil?"],
-            compile(children),
-            [:code, 'else'],
-            [:escape, true, [:dynamic, property]],
-            [:code, 'end'],
+            [
+              :if, "#{property}.is_a?(Hash) or #{property}.nil?",
+              compile(children),
+              [:escape, true, [:dynamic, property]],
+            ],
           ],
         ),
         [:code, 'end'],
