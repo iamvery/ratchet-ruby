@@ -7,20 +7,21 @@ class TransformerTest < Minitest::Test
       [:nut, :tag, :data, 'title', 'div', [:multi], [:static, 'Title']],
       [
         :multi,
-        [:code, '[data["title"]].flatten.each do |title|'],
         [
-          :html, :tag, 'div',
-          [:multi],
+          :block, '[data["title"]].flatten.each do |title|',
           [
-            :multi,
-            [:code, 'if title.is_a?(Hash) or title.nil?'],
-            [:static, 'Title'],
-            [:code, 'else'],
-            [:escape, true, [:dynamic, 'title']],
-            [:code, 'end'],
+            :html, :tag, 'div',
+            [:multi],
+            [
+              :multi,
+              [
+                :if, 'title.is_a?(Hash) or title.nil?',
+                [:static, 'Title'],
+                [:escape, true, [:dynamic, 'title']],
+              ],
+            ],
           ],
         ],
-        [:code, 'end'],
       ],
     )
   end

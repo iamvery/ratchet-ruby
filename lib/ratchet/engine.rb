@@ -9,7 +9,10 @@ module Ratchet
     use Parser
     use Transformer
     use Temple::HTML::Fast
+    use Temple::Filters::ControlFlow
     use Temple::Filters::Escapable
+    use Temple::Filters::MultiFlattener
+    use Temple::Filters::StaticMerger
     use(:generator) { options[:generator] }
   end
 end
