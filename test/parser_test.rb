@@ -24,6 +24,20 @@ class ParserTest < Minitest::Test
     )
   end
 
+  def test_self_closing
+    assert_parsed(
+      '<div><img></div>',
+      [
+        :nut, :tag, :data, nil, 'div',
+        [:nut, :attrs, {}],
+        [
+          :multi,
+          [:nut, :tag, :data, nil, 'img', [:nut, :attrs, {}], [:multi]],
+        ],
+      ],
+    )
+  end
+
   def test_basic_property
     assert_parsed(
       '<div data-prop="title">Hello</div>',
