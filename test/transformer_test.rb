@@ -6,17 +6,21 @@ class TransformerTest < Minitest::Test
     assert_transformed(
       [:nut, :tag, :data, 'title', 'div', [:multi], [:static, 'Title']],
       [
-        :html, :tag, 'div',
-        [:multi],
+        :multi,
+        [:code, '[data["title"]].flatten.each do |title|'],
         [
-          :multi,
-          [:code, 'title = data["title"]'],
-          [:code, 'if title.is_a?(Hash) or title.nil?'],
-          [:static, 'Title'],
-          [:code, 'else'],
-          [:dynamic, 'title'],
-          [:code, 'end'],
+          :html, :tag, 'div',
+          [:multi],
+          [
+            :multi,
+            [:code, 'if title.is_a?(Hash) or title.nil?'],
+            [:static, 'Title'],
+            [:code, 'else'],
+            [:dynamic, 'title'],
+            [:code, 'end'],
+          ],
         ],
+        [:code, 'end'],
       ],
     )
   end

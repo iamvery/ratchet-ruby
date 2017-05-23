@@ -17,19 +17,23 @@ module Ratchet
     private
 
     def build_dynamic(scope, property, tag, attributes, children)
-      build_html_tag(
-        tag,
-        compile(attributes),
-        [
-          :multi,
-          [:code, "#{property} = #{scope}[#{property.inspect}]"],
-          [:code, "if #{property}.is_a?(Hash) or #{property}.nil?"],
-          compile(children),
-          [:code, 'else'],
-          [:dynamic, property],
-          [:code, 'end'],
-        ],
-      )
+      [
+        :multi,
+        [:code, "[#{scope}[#{property.inspect}]].flatten.each do |#{property}|"],
+        build_html_tag(
+          tag,
+          compile(attributes),
+          [
+            :multi,
+            [:code, "if #{property}.is_a?(Hash) or #{property}.nil?"],
+            compile(children),
+            [:code, 'else'],
+            [:dynamic, property],
+            [:code, 'end'],
+          ],
+        ),
+        [:code, 'end'],
+      ]
     end
 
     def build_static(scope, property, tag, attributes, children)
