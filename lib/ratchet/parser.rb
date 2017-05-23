@@ -14,7 +14,7 @@ module Ratchet
 
     def call(source)
       document = Ox.parse(source)
-      parse(document)
+      [:multi, parse(document)]
     end
 
     private
