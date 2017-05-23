@@ -3,6 +3,7 @@ require 'temple'
 
 module Ratchet
   class Parser < Temple::Parser
+    DEFAULT_SCOPE = :data
     PROPERTY_ATTRIBUTE = :'data-prop'
 
     def call(source)
@@ -12,24 +13,25 @@ module Ratchet
 
     private
 
-    def parse(element)
+    def parse(element, scope = DEFAULT_SCOPE)
       if element.is_a?(Ox::Element)
-        parse_element(element)
+        parse_element(element, scope)
       else
         [:static, element]
       end
     end
 
-    def parse_element(element)
+    def parse_element(element, scope)
       property = element.attributes[PROPERTY_ATTRIBUTE]
-      nut(element, property)
+      nut(element, scope, property)
     end
 
-    def nut(element, property)
+    def nut(element, scope, property)
+      new_scope = property ? property : scope
       [
-        :nut, :tag, property, element.value,
+        :nut, :tag, scope, property, element.value,
         [:nut, :attrs, element.attributes],
-        [:multi, *element.nodes.map(&method(:parse))],
+        [:multi, *element.nodes.map { |e| parse(e, new_scope) }],
       ]
     end
   end

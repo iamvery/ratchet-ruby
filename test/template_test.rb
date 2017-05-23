@@ -20,4 +20,10 @@ class TemplateTest < Minitest::Test
     output = render(source, 'title' => 'Ratchet')
     assert_equal '<div data-prop="title">Ratchet</div>', output
   end
+
+  def test_nested_properties
+    source = '<div data-prop="post"><span data-prop="title">An Title</span></div>'
+    output = render(source, 'post' => { 'title' => 'Ratchet' })
+    assert_equal '<div data-prop="post"><span data-prop="title">Ratchet</span></div>', output
+  end
 end
