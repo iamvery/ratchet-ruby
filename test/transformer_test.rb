@@ -4,11 +4,19 @@ require 'ratchet/transformer'
 class TransformerTest < Minitest::Test
   def test_content_transformation
     assert_transformed(
-      [:nut, :tag, :data, 'title', 'div', [:multi], [:multi]],
+      [:nut, :tag, :data, 'title', 'div', [:multi], [:static, 'Title']],
       [
         :html, :tag, 'div',
         [:multi],
-        [:dynamic, 'data["title"]'],
+        [
+          :multi,
+          [:code, 'title = data["title"]'],
+          [:code, 'if title.is_a?(Hash) or title.nil?'],
+          [:static, 'Title'],
+          [:code, 'else'],
+          [:dynamic, 'title'],
+          [:code, 'end'],
+        ],
       ],
     )
   end
