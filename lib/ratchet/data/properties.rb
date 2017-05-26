@@ -1,17 +1,11 @@
+require 'ratchet/data/base'
+
 module Ratchet
   module Data
-    class Properties
-      def initialize(data)
-        @data = data
-      end
-
+    class Properties < Base
       def property(name)
-        data.fetch(name)
+        data.fetch(name, nil)
       end
-
-      private
-
-      attr_reader :data
     end
   end
 end
