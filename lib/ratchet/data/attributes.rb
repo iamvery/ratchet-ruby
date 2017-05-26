@@ -5,8 +5,8 @@ module Ratchet
     class Attributes < Base
       SEPARATOR = ' '.freeze
 
-      def build
-        data
+      def build(existing = Hash.new)
+        existing.merge(data)
           .map(&method(:serialize))
           .join(SEPARATOR)
       end
