@@ -4,6 +4,14 @@ require 'ratchet/data'
 class DataTest < Minitest::Test
   include Ratchet::Data
 
+  def test_attributes_shortcuts
+    attributes = Attributes(class: 'active')
+    assert_equal 'class="active"', attributes.build
+
+    attributes = A(class: 'active')
+    assert_equal 'class="active"', attributes.build
+  end
+
   def test_content_shortcuts
     content = Content('An Content')
     assert_equal 'An Content', content.to_s

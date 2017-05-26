@@ -1,8 +1,15 @@
 require 'ratchet/data/content'
+require 'ratchet/data/attributes'
 require 'ratchet/data/properties'
 
 module Ratchet
   module Data
+    def Attributes(data)
+      Attributes.new(data)
+    end
+    module_function :Attributes
+    alias_method :A, :Attributes
+
     def Content(data)
       Content.new(data)
     end
