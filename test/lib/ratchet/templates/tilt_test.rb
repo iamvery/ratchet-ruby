@@ -1,7 +1,10 @@
 require 'helper'
+require 'ratchet/data'
 require 'ratchet/templates/tilt'
 
 class TemplateTest < Minitest::Test
+  include Ratchet::Data
+
   Context = Struct.new(:data)
 
   def render(source, data = nil)
@@ -29,25 +32,25 @@ class TemplateTest < Minitest::Test
 
   def test_replaces_tag_content
     source = '<div data-prop="title">An Title</div>'
-    output = render(source, 'title' => 'Ratchet')
+    output = render(source, P('title' => 'Ratchet'))
     assert_equal '<div data-prop="title">Ratchet</div>', output
   end
 
   def test_nested_properties
     source = '<div data-prop="post"><span data-prop="title">An Title</span></div>'
-    output = render(source, 'post' => { 'title' => 'Ratchet' })
+    output = render(source, P('post' => P('title' => 'Ratchet')))
     assert_equal '<div data-prop="post"><span data-prop="title">Ratchet</span></div>', output
   end
 
   def test_iteration
     source = '<div data-prop="items">An Item</div>'
-    output = render(source, 'items' => ['first', 'second'])
+    output = render(source, P('items' => ['first', 'second']))
     assert_equal '<div data-prop="items">first</div><div data-prop="items">second</div>', output
   end
 
   def test_escaping
     source = '<div data-prop="foo"></div>'
-    output = render(source, 'foo' => '<span>hacked!</span>')
+    output = render(source, P('foo' => '<span>hacked!</span>'))
     assert_equal '<div data-prop="foo">&lt;span&gt;hacked!&lt;/span&gt;</div>', output
   end
 
