@@ -13,9 +13,9 @@ class TransformerTest < Minitest::Test
             :html, :tag, 'div',
             [:multi],
             [
-              :if, 'title.is_a?(Ratchet::Data::Base) or title.nil?',
-              [:static, 'Title'],
+              :if, 'title.content?',
               [:escape, true, [:dynamic, 'title']],
+              [:static, 'Title'],
             ],
           ],
         ],

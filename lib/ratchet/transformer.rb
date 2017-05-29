@@ -25,9 +25,9 @@ module Ratchet
             tag,
             compile(attributes),
             [
-              :if, "#{property}.is_a?(Ratchet::Data::Base) or #{property}.nil?",
-              compile(children),
+              :if, "#{property}.content?",
               [:escape, true, [:dynamic, property]],
+              compile(children),
             ],
           ),
         ],

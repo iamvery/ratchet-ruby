@@ -32,25 +32,25 @@ class TemplateTest < Minitest::Test
 
   def test_replaces_tag_content
     source = '<div data-prop="title">An Title</div>'
-    output = render(source, P('title' => 'Ratchet'))
+    output = render(source, P('title' => C('Ratchet')))
     assert_equal '<div data-prop="title">Ratchet</div>', output
   end
 
   def test_nested_properties
     source = '<div data-prop="post"><span data-prop="title">An Title</span></div>'
-    output = render(source, P('post' => P('title' => 'Ratchet')))
+    output = render(source, P('post' => P('title' => C('Ratchet'))))
     assert_equal '<div data-prop="post"><span data-prop="title">Ratchet</span></div>', output
   end
 
   def test_iteration
     source = '<div data-prop="items">An Item</div>'
-    output = render(source, P('items' => ['first', 'second']))
+    output = render(source, P('items' => [C('first'), C('second')]))
     assert_equal '<div data-prop="items">first</div><div data-prop="items">second</div>', output
   end
 
   def test_escaping
     source = '<div data-prop="foo"></div>'
-    output = render(source, P('foo' => '<span>hacked!</span>'))
+    output = render(source, P('foo' => C('<span>hacked!</span>')))
     assert_equal '<div data-prop="foo">&lt;span&gt;hacked!&lt;/span&gt;</div>', output
   end
 
