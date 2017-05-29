@@ -14,6 +14,10 @@ module Ratchet
         data.content?
       end
 
+      def property(*args)
+        data.property(*args)
+      end
+
       def to_s
         data.to_s
       end

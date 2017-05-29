@@ -49,6 +49,12 @@ class RenderingTest < Minitest::Test
     assert_equal '<a data-prop="link" href="/">Click me!</a>', output
   end
 
+  def test_combined_data_with_nested_properties
+    source = '<div data-prop="post"><span data-prop="title"><span></div>'
+    output = render(source, P('post' => M(P('title' => C('lolwat')), A(class: 'fancy'))))
+    assert_equal '<div data-prop="post" class="fancy"><span data-prop="title">lolwat</span></div>', output
+  end
+
   def test_preserves_tag_content
     source = '<div data-prop="title">An Title</div>'
     output = render(source)
