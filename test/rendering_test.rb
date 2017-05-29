@@ -43,6 +43,12 @@ class RenderingTest < Minitest::Test
     assert_equal '<a data-prop="link" href="/">Click me!</a>', output
   end
 
+  def test_renders_combined_attributes_and_content
+    source = '<a data-prop="link">An Link</a>'
+    output = render(source, P('link' => M(C('Click me!'), A(href: '/'))))
+    assert_equal '<a data-prop="link" href="/">Click me!</a>', output
+  end
+
   def test_preserves_tag_content
     source = '<div data-prop="title">An Title</div>'
     output = render(source)
