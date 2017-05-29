@@ -1,5 +1,6 @@
 require 'helper'
 require 'ratchet/data'
+require 'ratchet/data/none'
 require 'ratchet/templates/tilt'
 
 class RenderingTest < Minitest::Test
@@ -7,7 +8,7 @@ class RenderingTest < Minitest::Test
 
   Context = Struct.new(:data)
 
-  def render(source, data = nil)
+  def render(source, data = Ratchet::Data::None)
     context = Context.new(data)
     Ratchet::Templates::Tilt.new { source }.render(context)
   end
@@ -34,6 +35,12 @@ class RenderingTest < Minitest::Test
     source = '<div data-prop="title">An Title</div>'
     output = render(source, P('title' => C('Ratchet')))
     assert_equal '<div data-prop="title">Ratchet</div>', output
+  end
+
+  def test_preserves_tag_content
+    source = '<div data-prop="title">An Title</div>'
+    output = render(source)
+    assert_equal source, output
   end
 
   def test_nested_properties
