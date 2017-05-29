@@ -25,7 +25,7 @@ class TransformerTest < Minitest::Test
 
   def test_attribute_preservation
     assert_transformed(
-      [:nut, :attrs, { foo: 'bar' }],
+      [:nut, :attrs, nil, { foo: 'bar' }],
       [:html, :attrs, [:multi, [:html, :attr, :foo, [:static, 'bar']]]],
     )
   end

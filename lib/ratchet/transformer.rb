@@ -10,7 +10,7 @@ module Ratchet
       end
     end
 
-    def on_nut_attrs(attributes)
+    def on_nut_attrs(property, attributes)
       [:html, :attrs, build_html_attrs(attributes)]
     end
 
