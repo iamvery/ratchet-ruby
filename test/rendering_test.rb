@@ -2,7 +2,7 @@ require 'helper'
 require 'ratchet/data'
 require 'ratchet/templates/tilt'
 
-class TemplateTest < Minitest::Test
+class RenderingTest < Minitest::Test
   include Ratchet::Data
 
   Context = Struct.new(:data)
