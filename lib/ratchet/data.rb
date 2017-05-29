@@ -1,5 +1,5 @@
-require 'ratchet/data/content'
 require 'ratchet/data/attributes'
+require 'ratchet/data/content'
 require 'ratchet/data/properties'
 
 module Ratchet
