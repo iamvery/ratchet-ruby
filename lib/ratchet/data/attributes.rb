@@ -5,13 +5,25 @@ module Ratchet
     class Attributes < Base
       SEPARATOR = ' '.freeze
 
-      def build(existing = Hash.new)
-        existing.merge(data)
-          .map(&method(:serialize))
-          .join(SEPARATOR)
+      def build
+        if block_given?
+          [yield, attributes].join(SEPARATOR)
+        else
+          attributes
+        end
       end
 
       private
+
+      def attributes
+        @attributes ||= build_attributes
+      end
+
+      def build_attributes
+        data
+          .map(&method(:serialize))
+          .join(SEPARATOR)
+      end
 
       def serialize((name, value))
         %Q(#{name}="#{value}")
