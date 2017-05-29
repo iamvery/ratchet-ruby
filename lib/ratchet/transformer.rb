@@ -11,7 +11,17 @@ module Ratchet
     end
 
     def on_nut_attrs(property, attributes)
-      [:html, :attrs, build_html_attrs(attributes)]
+      existing_attrs = [:html, :attrs, build_html_attrs(attributes)]
+
+      if property
+        [
+          :multi,
+          existing_attrs,
+          [:dynamic, "#{property}.build"],
+        ]
+      else
+        existing_attrs
+      end
     end
 
     private

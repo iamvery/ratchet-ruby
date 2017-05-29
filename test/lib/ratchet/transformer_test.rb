@@ -30,6 +30,17 @@ class TransformerTest < Minitest::Test
     )
   end
 
+  def test_attributes_transformation
+    assert_transformed(
+      [:nut, :attrs, 'title', { foo: 'bar' }],
+      [
+        :multi,
+        [:html, :attrs, [:multi, [:html, :attr, :foo, [:static, 'bar']]]],
+        [:dynamic, 'title.build'],
+      ],
+    )
+  end
+
   private
 
   def assert_transformed(source, expected)
