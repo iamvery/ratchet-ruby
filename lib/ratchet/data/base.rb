@@ -5,6 +5,11 @@ module Ratchet
         @data = data
       end
 
+      # Override in child classes
+      def content?
+        false
+      end
+
       private
 
       attr_reader :data
