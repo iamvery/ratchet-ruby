@@ -18,8 +18,11 @@ module Ratchet
       end
 
       def serialize((name, value))
-        safe_value = ::Temple::Utils.escape_html(value)
-        %Q(#{name}="#{safe_value}")
+        %Q(#{name}="#{escape value}")
+      end
+
+      def escape(value)
+        ::Temple::Utils.escape_html(value)
       end
     end
   end
