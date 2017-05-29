@@ -6,6 +6,10 @@ module Ratchet
       end
 
       # Override in child classes
+      def build
+      end
+
+      # Override in child classes
       def content?
         false
       end

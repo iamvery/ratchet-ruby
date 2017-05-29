@@ -7,7 +7,7 @@ class ParserTest < Minitest::Test
       '<div>Hello</div>',
       [:multi, [
         :nut, :tag, :data, nil, 'div',
-        [:nut, :attrs, {}],
+        [:nut, :attrs, nil, {}],
         [:multi, [:static, 'Hello']],
       ]],
     )
@@ -18,7 +18,7 @@ class ParserTest < Minitest::Test
       '<div><!-- comment --></div>',
       [:multi, [
         :nut, :tag, :data, nil, 'div',
-        [:nut, :attrs, {}],
+        [:nut, :attrs, nil, {}],
         [:multi, [:html, :comment, [:static, 'comment']]],
       ]],
     )
@@ -29,8 +29,8 @@ class ParserTest < Minitest::Test
       '<div>first</div><div>second</div>',
       [
         :multi,
-        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, {}], [:multi, [:static, 'first']]],
-        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, {}], [:multi, [:static, 'second']]],
+        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, nil, {}], [:multi, [:static, 'first']]],
+        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, nil, {}], [:multi, [:static, 'second']]],
       ],
     )
   end
@@ -40,10 +40,10 @@ class ParserTest < Minitest::Test
       '<div><img></div>',
       [:multi, [
         :nut, :tag, :data, nil, 'div',
-        [:nut, :attrs, {}],
+        [:nut, :attrs, nil, {}],
         [
           :multi,
-          [:nut, :tag, :data, nil, 'img', [:nut, :attrs, {}], [:multi]],
+          [:nut, :tag, :data, nil, 'img', [:nut, :attrs, nil, {}], [:multi]],
         ],
       ]],
     )
@@ -54,7 +54,7 @@ class ParserTest < Minitest::Test
       '<div data-prop="title">Hello</div>',
       [:multi, [
         :nut, :tag, :data, 'title', 'div',
-        [:nut, :attrs, { 'data-prop' => 'title' }],
+        [:nut, :attrs, 'title', { 'data-prop' => 'title' }],
         [:multi, [:static, 'Hello']],
       ]],
     )
@@ -65,12 +65,12 @@ class ParserTest < Minitest::Test
       '<div data-prop="post"><span data-prop="title"></span></div>',
       [:multi, [
         :nut, :tag, :data, 'post', 'div',
-        [:nut, :attrs, { 'data-prop' => 'post' }],
+        [:nut, :attrs, 'post', { 'data-prop' => 'post' }],
         [
           :multi,
           [
             :nut, :tag, 'post', 'title', 'span',
-            [:nut, :attrs, { 'data-prop' => 'title' }],
+            [:nut, :attrs, 'title', { 'data-prop' => 'title' }],
             [:multi],
           ],
         ],
@@ -89,22 +89,22 @@ class ParserTest < Minitest::Test
       HTML
       [:multi, [
         :nut, :tag, :data, nil, 'ul',
-        [:nut, :attrs, {}],
+        [:nut, :attrs, nil, {}],
         [
           :multi,
           [
             :nut, :tag, :data, 'post', 'li',
-            [:nut, :attrs, { 'data-prop' => 'post' }],
+            [:nut, :attrs, 'post', { 'data-prop' => 'post' }],
             [
               :multi,
               [
                 :nut, :tag, 'post', nil, 'div',
-                [:nut, :attrs, {}],
+                [:nut, :attrs, nil, {}],
                 [
                   :multi,
                   [
                     :nut, :tag, 'post', 'title', 'span',
-                    [:nut, :attrs, { 'data-prop' => 'title' }],
+                    [:nut, :attrs, 'title', { 'data-prop' => 'title' }],
                     [:multi],
                   ],
                 ]

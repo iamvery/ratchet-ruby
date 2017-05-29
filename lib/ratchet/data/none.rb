@@ -5,6 +5,10 @@ module Ratchet
         self
       end
 
+      # Noop for attributes
+      def self.build
+      end
+
       def self.content?
         false
       end

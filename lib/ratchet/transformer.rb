@@ -10,8 +10,12 @@ module Ratchet
       end
     end
 
-    def on_nut_attrs(attributes)
-      [:html, :attrs, build_html_attrs(attributes)]
+    def on_nut_attrs(property, attributes)
+      if property
+        build_dynamic_attrs(property, attributes)
+      else
+        build_static_attrs(attributes)
+      end
     end
 
     private
@@ -44,6 +48,18 @@ module Ratchet
 
     def build_html_tag(name, attributes, children)
       [:html, :tag, name, attributes, children]
+    end
+
+    def build_dynamic_attrs(property, attributes)
+      [
+        :multi,
+        build_static_attrs(attributes),
+        [:dynamic, "#{property}.build"],
+      ]
+    end
+
+    def build_static_attrs(attributes)
+      [:html, :attrs, build_html_attrs(attributes)]
     end
 
     def build_html_attrs(attributes)
