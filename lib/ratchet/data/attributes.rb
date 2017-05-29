@@ -6,18 +6,10 @@ module Ratchet
       SEPARATOR = ' '.freeze
 
       def build
-        if block_given?
-          [yield, attributes].join(SEPARATOR)
-        else
-          attributes
-        end
+        build_attributes
       end
 
       private
-
-      def attributes
-        @attributes ||= build_attributes
-      end
 
       def build_attributes
         data
