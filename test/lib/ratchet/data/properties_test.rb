@@ -1,5 +1,6 @@
 require 'helper'
 require 'ratchet/data/properties'
+require 'ratchet/data/none'
 
 class PropertiesDataTest < Minitest::Test
   def test_property
