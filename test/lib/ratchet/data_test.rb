@@ -20,6 +20,14 @@ class DataTest < Minitest::Test
     assert_equal 'An Content', content.to_s
   end
 
+  def test_combined_shortcuts
+    content = Combined(C('An Content'), A(foo: 'bar'))
+    assert_equal 'An Content', content.to_s
+
+    content = Combined(C('An Content'), A(foo: 'bar'))
+    assert_equal 'An Content', content.to_s
+  end
+
   def test_properties_shortcuts
     properties = Properties(foo: 'bar')
     assert_equal 'bar', properties.property(:foo)
