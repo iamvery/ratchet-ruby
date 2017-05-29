@@ -8,17 +8,14 @@ class TransformerTest < Minitest::Test
       [
         :multi,
         [
-          :block, '[data["title"]].flatten.each do |title|',
+          :block, '[data.property("title")].flatten.each do |title|',
           [
             :html, :tag, 'div',
             [:multi],
             [
-              :multi,
-              [
-                :if, 'title.is_a?(Hash) or title.nil?',
-                [:static, 'Title'],
-                [:escape, true, [:dynamic, 'title']],
-              ],
+              :if, 'title.content?',
+              [:escape, true, [:dynamic, 'title']],
+              [:static, 'Title'],
             ],
           ],
         ],

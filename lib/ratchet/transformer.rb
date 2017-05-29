@@ -20,17 +20,14 @@ module Ratchet
       [
         :multi,
         [
-          :block, "[#{scope}[#{property.inspect}]].flatten.each do |#{property}|",
+          :block, "[#{scope}.property(#{property.inspect})].flatten.each do |#{property}|",
           build_html_tag(
             tag,
             compile(attributes),
             [
-              :multi,
-              [
-                :if, "#{property}.is_a?(Hash) or #{property}.nil?",
-                compile(children),
-                [:escape, true, [:dynamic, property]],
-              ],
+              :if, "#{property}.content?",
+              [:escape, true, [:dynamic, property]],
+              compile(children),
             ],
           ),
         ],
