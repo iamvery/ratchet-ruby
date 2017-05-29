@@ -71,6 +71,10 @@ class RenderingTest < Minitest::Test
     source = '<div data-prop="foo"></div>'
     output = render(source, P('foo' => C('<span>hacked!</span>')))
     assert_equal '<div data-prop="foo">&lt;span&gt;hacked!&lt;/span&gt;</div>', output
+
+    source = '<a data-prop="link"></a>'
+    output = render(source, P('link' => A(href: '" class="hacked" lol="')))
+    assert_equal '<a data-prop="link" href="&quot; class=&quot;hacked&quot; lol=&quot;"></a>', output
   end
 
   def test_comment
