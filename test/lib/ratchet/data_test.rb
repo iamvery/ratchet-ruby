@@ -6,10 +6,10 @@ class DataTest < Minitest::Test
 
   def test_attributes_shortcuts
     attributes = Attributes(class: 'active')
-    assert_equal 'class="active"', attributes.build
+    assert_equal ' class="active"', attributes.build
 
     attributes = A(class: 'active')
-    assert_equal 'class="active"', attributes.build
+    assert_equal ' class="active"', attributes.build
   end
 
   def test_content_shortcuts

@@ -6,7 +6,7 @@ module Ratchet
       SEPARATOR = ' '.freeze
 
       def build
-        build_attributes
+        SEPARATOR + build_attributes
       end
 
       private
