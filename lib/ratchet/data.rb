@@ -1,5 +1,6 @@
-require 'ratchet/data/content'
 require 'ratchet/data/attributes'
+require 'ratchet/data/content'
+require 'ratchet/data/combined'
 require 'ratchet/data/properties'
 
 module Ratchet
@@ -15,6 +16,12 @@ module Ratchet
     end
     module_function :Content
     alias_method :C, :Content
+
+    def Combined(*args)
+      Combined.new(*args)
+    end
+    module_function :Combined
+    alias_method :M, :Combined
 
     def Properties(data)
       Properties.new(data)
