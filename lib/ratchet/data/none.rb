@@ -1,16 +1,14 @@
+require 'ratchet/data/base'
+
 module Ratchet
   module Data
-    module None
-      def self.property(*)
+    class None < Base
+      def initialize
+        super(nil)
+      end
+
+      def property(*)
         self
-      end
-
-      # Noop for attributes
-      def self.build
-      end
-
-      def self.content?
-        false
       end
     end
   end

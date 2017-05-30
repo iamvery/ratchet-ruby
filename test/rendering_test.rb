@@ -8,7 +8,7 @@ class RenderingTest < Minitest::Test
 
   Context = Struct.new(:data)
 
-  def render(source, data = Ratchet::Data::None)
+  def render(source, data = Ratchet::Data::None.new)
     context = Context.new(data)
     Ratchet::Templates::Tilt.new { source }.render(context)
   end
