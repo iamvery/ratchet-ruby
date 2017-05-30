@@ -62,7 +62,8 @@ class ParserTest < Minitest::Test
     assert_parsed(
       '<div data-prop="title">Hello</div>',
       [
-        :multi, [
+        :multi,
+        [
           :nut, :tag, :data, :title, 'div',
           [:nut, :attrs, :title, { 'data-prop' => 'title' }],
           [:multi, [:static, 'Hello']],
