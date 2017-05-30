@@ -31,7 +31,7 @@ module Ratchet
     end
 
     def parse_element(element, scope)
-      property = element.attributes[PROPERTY_ATTRIBUTE]
+      property = element.attributes[PROPERTY_ATTRIBUTE]&.to_sym
       nut(element, scope, property)
     end
 
