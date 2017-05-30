@@ -5,22 +5,28 @@ class ParserTest < Minitest::Test
   def test_basic_html
     assert_parsed(
       '<div>Hello</div>',
-      [:multi, [
-        :nut, :tag, :data, nil, 'div',
-        [:nut, :attrs, nil, {}],
-        [:multi, [:static, 'Hello']],
-      ]],
+      [
+        :multi,
+        [
+          :nut, :tag, :data, nil, 'div',
+          [:nut, :attrs, nil, {}],
+          [:multi, [:static, 'Hello']],
+        ],
+      ],
     )
   end
 
   def test_comment
     assert_parsed(
       '<div><!-- comment --></div>',
-      [:multi, [
-        :nut, :tag, :data, nil, 'div',
-        [:nut, :attrs, nil, {}],
-        [:multi, [:html, :comment, [:static, 'comment']]],
-      ]],
+      [
+        :multi,
+        [
+          :nut, :tag, :data, nil, 'div',
+          [:nut, :attrs, nil, {}],
+          [:multi, [:html, :comment, [:static, 'comment']]],
+        ],
+      ],
     )
   end
 
@@ -38,43 +44,51 @@ class ParserTest < Minitest::Test
   def test_self_closing
     assert_parsed(
       '<div><img></div>',
-      [:multi, [
-        :nut, :tag, :data, nil, 'div',
-        [:nut, :attrs, nil, {}],
+      [
+        :multi,
         [
-          :multi,
-          [:nut, :tag, :data, nil, 'img', [:nut, :attrs, nil, {}], [:multi]],
+          :nut, :tag, :data, nil, 'div',
+          [:nut, :attrs, nil, {}],
+          [
+            :multi,
+            [:nut, :tag, :data, nil, 'img', [:nut, :attrs, nil, {}], [:multi]],
+          ],
         ],
-      ]],
+      ],
     )
   end
 
   def test_basic_property
     assert_parsed(
       '<div data-prop="title">Hello</div>',
-      [:multi, [
-        :nut, :tag, :data, :title, 'div',
-        [:nut, :attrs, :title, { 'data-prop' => 'title' }],
-        [:multi, [:static, 'Hello']],
-      ]],
+      [
+        :multi, [
+          :nut, :tag, :data, :title, 'div',
+          [:nut, :attrs, :title, { 'data-prop' => 'title' }],
+          [:multi, [:static, 'Hello']],
+        ],
+      ],
     )
   end
 
   def test_nested_property
     assert_parsed(
       '<div data-prop="post"><span data-prop="title"></span></div>',
-      [:multi, [
-        :nut, :tag, :data, :post, 'div',
-        [:nut, :attrs, :post, { 'data-prop' => 'post' }],
+      [
+        :multi,
         [
-          :multi,
+          :nut, :tag, :data, :post, 'div',
+          [:nut, :attrs, :post, { 'data-prop' => 'post' }],
           [
-            :nut, :tag, :post, :title, 'span',
-            [:nut, :attrs, :title, { 'data-prop' => 'title' }],
-            [:multi],
+            :multi,
+            [
+              :nut, :tag, :post, :title, 'span',
+              [:nut, :attrs, :title, { 'data-prop' => 'title' }],
+              [:multi],
+            ],
           ],
         ],
-      ]],
+      ],
     )
   end
 
@@ -87,32 +101,35 @@ class ParserTest < Minitest::Test
           </li>
         </ul>
       HTML
-      [:multi, [
-        :nut, :tag, :data, nil, 'ul',
-        [:nut, :attrs, nil, {}],
+      [
+        :multi,
         [
-          :multi,
+          :nut, :tag, :data, nil, 'ul',
+          [:nut, :attrs, nil, {}],
           [
-            :nut, :tag, :data, :post, 'li',
-            [:nut, :attrs, :post, { 'data-prop' => 'post' }],
+            :multi,
             [
-              :multi,
+              :nut, :tag, :data, :post, 'li',
+              [:nut, :attrs, :post, { 'data-prop' => 'post' }],
               [
-                :nut, :tag, :post, nil, 'div',
-                [:nut, :attrs, nil, {}],
+                :multi,
                 [
-                  :multi,
+                  :nut, :tag, :post, nil, 'div',
+                  [:nut, :attrs, nil, {}],
                   [
-                    :nut, :tag, :post, :title, 'span',
-                    [:nut, :attrs, :title, { 'data-prop' => 'title' }],
-                    [:multi],
-                  ],
-                ]
+                    :multi,
+                    [
+                      :nut, :tag, :post, :title, 'span',
+                      [:nut, :attrs, :title, { 'data-prop' => 'title' }],
+                      [:multi],
+                    ],
+                  ]
+                ],
               ],
             ],
           ],
         ],
-      ]],
+      ],
     )
   end
 
