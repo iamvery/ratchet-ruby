@@ -5,6 +5,9 @@ require 'ratchet/data/properties'
 
 module Ratchet
   module Data
+    # TODO consider explicit conversion protocols rather than type checks for
+    # fall-throughs, e.g. to_attrs, to_ratchet_data, etc.
+
     def Attributes(data)
       return data if data.is_a?(Attributes)
       Attributes.new(data)
