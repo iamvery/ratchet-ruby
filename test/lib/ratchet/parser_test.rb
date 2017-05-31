@@ -7,8 +7,9 @@ class ParserTest < Minitest::Test
       '<div>Hello</div>',
       [
         :multi,
+        [:code, '_data = Ratchet::Data.Data(data)'],
         [
-          :nut, :tag, :data, nil, 'div',
+          :nut, :tag, :_data, nil, 'div',
           [:nut, :attrs, nil, {}],
           [:multi, [:static, 'Hello']],
         ],
@@ -21,8 +22,9 @@ class ParserTest < Minitest::Test
       '<div><!-- comment --></div>',
       [
         :multi,
+        [:code, '_data = Ratchet::Data.Data(data)'],
         [
-          :nut, :tag, :data, nil, 'div',
+          :nut, :tag, :_data, nil, 'div',
           [:nut, :attrs, nil, {}],
           [:multi, [:html, :comment, [:static, 'comment']]],
         ],
@@ -35,8 +37,9 @@ class ParserTest < Minitest::Test
       '<div>first</div><div>second</div>',
       [
         :multi,
-        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, nil, {}], [:multi, [:static, 'first']]],
-        [:nut, :tag, :data, nil, 'div', [:nut, :attrs, nil, {}], [:multi, [:static, 'second']]],
+        [:code, '_data = Ratchet::Data.Data(data)'],
+        [:nut, :tag, :_data, nil, 'div', [:nut, :attrs, nil, {}], [:multi, [:static, 'first']]],
+        [:nut, :tag, :_data, nil, 'div', [:nut, :attrs, nil, {}], [:multi, [:static, 'second']]],
       ],
     )
   end
@@ -46,12 +49,13 @@ class ParserTest < Minitest::Test
       '<div><img></div>',
       [
         :multi,
+        [:code, '_data = Ratchet::Data.Data(data)'],
         [
-          :nut, :tag, :data, nil, 'div',
+          :nut, :tag, :_data, nil, 'div',
           [:nut, :attrs, nil, {}],
           [
             :multi,
-            [:nut, :tag, :data, nil, 'img', [:nut, :attrs, nil, {}], [:multi]],
+            [:nut, :tag, :_data, nil, 'img', [:nut, :attrs, nil, {}], [:multi]],
           ],
         ],
       ],
@@ -63,8 +67,9 @@ class ParserTest < Minitest::Test
       '<div data-prop="title">Hello</div>',
       [
         :multi,
+        [:code, '_data = Ratchet::Data.Data(data)'],
         [
-          :nut, :tag, :data, :title, 'div',
+          :nut, :tag, :_data, :title, 'div',
           [:nut, :attrs, :title, { 'data-prop' => 'title' }],
           [:multi, [:static, 'Hello']],
         ],
@@ -77,8 +82,9 @@ class ParserTest < Minitest::Test
       '<div data-prop="post"><span data-prop="title"></span></div>',
       [
         :multi,
+        [:code, '_data = Ratchet::Data.Data(data)'],
         [
-          :nut, :tag, :data, :post, 'div',
+          :nut, :tag, :_data, :post, 'div',
           [:nut, :attrs, :post, { 'data-prop' => 'post' }],
           [
             :multi,
@@ -104,13 +110,14 @@ class ParserTest < Minitest::Test
       HTML
       [
         :multi,
+        [:code, '_data = Ratchet::Data.Data(data)'],
         [
-          :nut, :tag, :data, nil, 'ul',
+          :nut, :tag, :_data, nil, 'ul',
           [:nut, :attrs, nil, {}],
           [
             :multi,
             [
-              :nut, :tag, :data, :post, 'li',
+              :nut, :tag, :_data, :post, 'li',
               [:nut, :attrs, :post, { 'data-prop' => 'post' }],
               [
                 :multi,

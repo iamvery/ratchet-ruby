@@ -9,13 +9,18 @@ Ox.default_options = {
 
 module Ratchet
   class Parser < Temple::Parser
-    DEFAULT_SCOPE = :data
+    DATA_INPUT_NAME = :data
+    DEFAULT_SCOPE = :_data
     PROPERTY_ATTRIBUTE = 'data-prop'.freeze
 
     def call(source)
       source = "<wrapper>#{source}</wrapper>"
       document = Ox.parse(source)
-      [:multi, *document.nodes.map(&method(:parse))]
+      [
+        :multi,
+        [:code, "#{DEFAULT_SCOPE} = Ratchet::Data.Data(#{DATA_INPUT_NAME})"],
+        *document.nodes.map(&method(:parse)),
+      ]
     end
 
     private
