@@ -4,8 +4,10 @@ require 'ratchet/data/none'
 module Ratchet
   module Data
     class Properties < Base
+      include Data
+
       def property(name)
-        data.fetch(name, None)
+        Data(data.fetch(name) { None.new })
       end
     end
   end

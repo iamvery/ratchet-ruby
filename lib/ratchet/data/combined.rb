@@ -1,9 +1,15 @@
 module Ratchet
   module Data
     class Combined < Base
+      include Ratchet::Data
+
       def initialize(data, attributes)
-        @attributes = attributes
-        super(data)
+        @attributes = Attributes(attributes)
+        super(Data(data))
+      end
+
+      def ==(other)
+        super and attributes == other.attributes
       end
 
       def build
@@ -22,7 +28,7 @@ module Ratchet
         data.to_s
       end
 
-      private
+      protected
 
       attr_reader :attributes
     end

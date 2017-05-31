@@ -8,7 +8,7 @@ class RenderingTest < Minitest::Test
 
   Context = Struct.new(:data)
 
-  def render(source, data = Ratchet::Data::None)
+  def render(source, data = Ratchet::Data::None.new)
     context = Context.new(data)
     Ratchet::Templates::Tilt.new { source }.render(context)
   end
@@ -35,6 +35,24 @@ class RenderingTest < Minitest::Test
     source = '<div data-prop="title">An Title</div>'
     output = render(source, P(title: C('Ratchet')))
     assert_equal '<div data-prop="title">Ratchet</div>', output
+  end
+
+  def test_coerces_raw_data_into_content
+    source = '<div data-prop="title">An Title</div>'
+    output = render(source, P(title: 'Ratchet'))
+    assert_equal '<div data-prop="title">Ratchet</div>', output
+  end
+
+  def test_coerces_raw_data_into_properties
+    source = '<div data-prop="title">An Title</div>'
+    output = render(source, title: 'Ratchet')
+    assert_equal '<div data-prop="title">Ratchet</div>', output
+  end
+
+  def test_coerces_raw_data_into_combined
+    source = '<div data-prop="title">An Title</div>'
+    output = render(source, title: M('Ratchet', class: 'active'))
+    assert_equal '<div data-prop="title" class="active">Ratchet</div>', output
   end
 
   def test_renders_tag_attributes

@@ -5,6 +5,10 @@ module Ratchet
         @data = data
       end
 
+      def ==(other)
+        data == other.data
+      end
+
       # Override in child classes
       def build
       end
@@ -14,7 +18,7 @@ module Ratchet
         false
       end
 
-      private
+      protected
 
       attr_reader :data
     end

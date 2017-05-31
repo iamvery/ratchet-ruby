@@ -1,4 +1,5 @@
 require 'ratchet/data/base'
+require 'temple'
 
 module Ratchet
   module Data
