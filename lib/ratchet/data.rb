@@ -33,6 +33,7 @@ module Ratchet
       case data
       when Base then data
       when Array then data.map(&method(:Data))
+      when Hash then P(data)
       else Content(data)
       end
     end

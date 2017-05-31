@@ -52,5 +52,6 @@ class DataTest < Minitest::Test
     assert_equal none, Data(none)
     assert_equal content, Data(raw_content)
     assert_equal [content], Data([raw_content])
+    assert_equal properties, Data(raw_properties)
   end
 end
