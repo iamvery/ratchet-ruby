@@ -32,6 +32,7 @@ module Ratchet
     def Data(data)
       case data
       when Base then data
+      else Content(data)
       end
     end
     module_function :Data
