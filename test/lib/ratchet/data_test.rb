@@ -18,32 +18,32 @@ class DataTest < Minitest::Test
     content = Content('An Content')
     assert_equal 'An Content', content.to_s
 
-    content = C('An Content')
+    content = T('An Content')
     assert_equal 'An Content', content.to_s
   end
 
   def test_combined_shortcuts
-    content = Combined(C('An Content'), A(foo: 'bar'))
+    content = Combined(T('An Content'), A(foo: 'bar'))
     assert_equal 'An Content', content.to_s
 
-    content = Combined(C('An Content'), A(foo: 'bar'))
+    content = C(T('An Content'), A(foo: 'bar'))
     assert_equal 'An Content', content.to_s
   end
 
   def test_properties_shortcuts
     properties = Properties(foo: 'bar')
-    assert_equal C('bar'), properties.property(:foo)
+    assert_equal T('bar'), properties.property(:foo)
 
     properties = P(foo: 'bar')
-    assert_equal C('bar'), properties.property(:foo)
+    assert_equal T('bar'), properties.property(:foo)
   end
 
   def test_data_coersion
     raw_content = 'lolwat'
     raw_properties = { haha: raw_content }
     attributes = A(foo: 'bar')
-    content = C(raw_content)
-    combined = M(content, attributes)
+    content = T(raw_content)
+    combined = C(content, attributes)
     properties = P(raw_properties)
     none = Ratchet::Data::None.new
 

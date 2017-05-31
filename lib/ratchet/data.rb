@@ -19,13 +19,13 @@ module Ratchet
       Content.new(data)
     end
     module_function :Content
-    alias_method :C, :Content
+    alias_method :T, :Content
 
     def Combined(*args)
       Combined.new(*args)
     end
     module_function :Combined
-    alias_method :M, :Combined
+    alias_method :C, :Combined
 
     def Properties(data)
       Properties.new(data)
