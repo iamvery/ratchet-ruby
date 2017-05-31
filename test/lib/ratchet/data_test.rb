@@ -30,10 +30,10 @@ class DataTest < Minitest::Test
 
   def test_properties_shortcuts
     properties = Properties(foo: 'bar')
-    assert_equal 'bar', properties.property(:foo)
+    assert_equal C('bar'), properties.property(:foo)
 
     properties = P(foo: 'bar')
-    assert_equal 'bar', properties.property(:foo)
+    assert_equal C('bar'), properties.property(:foo)
   end
 
   def test_data_coersion

@@ -27,9 +27,10 @@ class CombinedDataTest < Minitest::Test
   end
 
   def test_property_delegates_to_data
-    properties = Ratchet::Data::Properties.new(foo: 'bar')
+    content = Ratchet::Data::Content.new('bar')
+    properties = Ratchet::Data::Properties.new(foo: content)
     data = Ratchet::Data::Combined.new(properties, nil)
-    assert_equal 'bar', data.property(:foo)
+    assert_equal content, data.property(:foo)
   end
 
   def test_equality
