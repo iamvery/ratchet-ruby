@@ -30,6 +30,9 @@ module Ratchet
     alias_method :P, :Properties
 
     def Data(data)
+      # TODO consider using array and hash conversion protocols to loosen
+      # coupling on the exact type. This would allow folks to use any
+      # convertible type when structuring data.
       case data
       when Base then data
       when Array then data.map(&method(:Data))
