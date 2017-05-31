@@ -32,6 +32,7 @@ module Ratchet
     def Data(data)
       case data
       when Base then data
+      when Array then data.map(&method(:Data))
       else Content(data)
       end
     end
