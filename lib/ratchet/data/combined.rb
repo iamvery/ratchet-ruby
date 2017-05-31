@@ -6,6 +6,10 @@ module Ratchet
         super(data)
       end
 
+      def ==(other)
+        super and attributes == other.attributes
+      end
+
       def build
         attributes.build
       end
@@ -22,7 +26,7 @@ module Ratchet
         data.to_s
       end
 
-      private
+      protected
 
       attr_reader :attributes
     end

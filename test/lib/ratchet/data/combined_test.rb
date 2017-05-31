@@ -31,4 +31,16 @@ class CombinedDataTest < Minitest::Test
     data = Ratchet::Data::Combined.new(properties, nil)
     assert_equal 'bar', data.property(:foo)
   end
+
+  def test_equality
+    content = Ratchet::Data::Content.new('foo')
+    attributes = Ratchet::Data::Attributes.new(lol: 'wat')
+    foo = Ratchet::Data::Combined.new(content, attributes)
+    bar = Ratchet::Data::Combined.new(content, attributes)
+    assert_equal foo, bar
+
+    other_attributes = Ratchet::Data::Attributes.new(lol: 'no')
+    baz = Ratchet::Data::Combined.new(content, other_attributes)
+    refute_equal foo, baz
+  end
 end
