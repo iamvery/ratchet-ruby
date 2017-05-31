@@ -26,7 +26,7 @@ class DataTest < Minitest::Test
     content = Combined(C('An Content'), A(foo: 'bar'))
     assert_equal 'An Content', content.to_s
 
-    content = Combined(C('An Content'), A(foo: 'bar'))
+    content = M(C('An Content'), A(foo: 'bar'))
     assert_equal 'An Content', content.to_s
   end
 
