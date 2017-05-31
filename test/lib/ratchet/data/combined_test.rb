@@ -11,7 +11,7 @@ class CombinedDataTest < Minitest::Test
   end
 
   def test_content_predicate_delegates_to_data
-    content = Ratchet::Data::Content.new("foo")
+    content = Ratchet::Data::Content.new('foo')
     data = Ratchet::Data::Combined.new(content, nil)
     assert data.content?
 
@@ -21,7 +21,7 @@ class CombinedDataTest < Minitest::Test
   end
 
   def test_string_representation_delegates_to_data
-    content = Ratchet::Data::Content.new("foo")
+    content = Ratchet::Data::Content.new('foo')
     data = Ratchet::Data::Combined.new(content, nil)
     assert_equal 'foo', data.to_s
   end
