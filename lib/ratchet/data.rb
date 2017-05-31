@@ -6,6 +6,7 @@ require 'ratchet/data/properties'
 module Ratchet
   module Data
     def Attributes(data)
+      return data if data.is_a?(Attributes)
       Attributes.new(data)
     end
     module_function :Attributes
