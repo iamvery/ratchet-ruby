@@ -28,5 +28,12 @@ module Ratchet
     end
     module_function :Properties
     alias_method :P, :Properties
+
+    def Data(data)
+      case data
+      when Base then data
+      end
+    end
+    module_function :Data
   end
 end

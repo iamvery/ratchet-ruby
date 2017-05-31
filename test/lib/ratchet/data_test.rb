@@ -35,4 +35,20 @@ class DataTest < Minitest::Test
     properties = P(foo: 'bar')
     assert_equal 'bar', properties.property(:foo)
   end
+
+  def test_data_coersion
+    raw_content = 'lolwat'
+    raw_properties = { haha: raw_content }
+    attributes = A(foo: 'bar')
+    content = C(raw_content)
+    combined = M(content, attributes)
+    properties = P(raw_properties)
+    none = Ratchet::Data::None.new
+
+    assert_equal attributes, Data(attributes)
+    assert_equal content, Data(content)
+    assert_equal combined, Data(combined)
+    assert_equal properties, Data(properties)
+    assert_equal none, Data(none)
+  end
 end
