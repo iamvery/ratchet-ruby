@@ -33,7 +33,7 @@ class RenderingTest < Minitest::Test
 
   def test_replaces_tag_content
     source = '<div data-prop="title">An Title</div>'
-    output = render(source, P(title: C('Ratchet')))
+    output = render(source, P(title: T('Ratchet')))
     assert_equal '<div data-prop="title">Ratchet</div>', output
   end
 
@@ -63,13 +63,13 @@ class RenderingTest < Minitest::Test
 
   def test_renders_combined_attributes_and_content
     source = '<a data-prop="link">An Link</a>'
-    output = render(source, P(link: M(C('Click me!'), A(href: '/'))))
+    output = render(source, P(link: M(T('Click me!'), A(href: '/'))))
     assert_equal '<a data-prop="link" href="/">Click me!</a>', output
   end
 
   def test_combined_data_with_nested_properties
     source = '<div data-prop="post"><span data-prop="title"><span></div>'
-    output = render(source, P(post: M(P(title: C('lolwat')), A(class: 'fancy'))))
+    output = render(source, P(post: M(P(title: T('lolwat')), A(class: 'fancy'))))
     assert_equal '<div data-prop="post" class="fancy"><span data-prop="title">lolwat</span></div>', output
   end
 
@@ -81,19 +81,19 @@ class RenderingTest < Minitest::Test
 
   def test_nested_properties
     source = '<div data-prop="post"><span data-prop="title">An Title</span></div>'
-    output = render(source, P(post: P(title: C('Ratchet'))))
+    output = render(source, P(post: P(title: T('Ratchet'))))
     assert_equal '<div data-prop="post"><span data-prop="title">Ratchet</span></div>', output
   end
 
   def test_iteration
     source = '<div data-prop="items">An Item</div>'
-    output = render(source, P(items: [C('first'), C('second')]))
+    output = render(source, P(items: [T('first'), T('second')]))
     assert_equal '<div data-prop="items">first</div><div data-prop="items">second</div>', output
   end
 
   def test_escaping
     source = '<div data-prop="foo"></div>'
-    output = render(source, P(foo: C('<span>hacked!</span>')))
+    output = render(source, P(foo: T('<span>hacked!</span>')))
     assert_equal '<div data-prop="foo">&lt;span&gt;hacked!&lt;/span&gt;</div>', output
 
     source = '<a data-prop="link"></a>'
