@@ -26,7 +26,7 @@ class DataTest < Minitest::Test
     content = Combined(T('An Content'), A(foo: 'bar'))
     assert_equal 'An Content', content.to_s
 
-    content = M(T('An Content'), A(foo: 'bar'))
+    content = C(T('An Content'), A(foo: 'bar'))
     assert_equal 'An Content', content.to_s
   end
 
@@ -43,7 +43,7 @@ class DataTest < Minitest::Test
     raw_properties = { haha: raw_content }
     attributes = A(foo: 'bar')
     content = T(raw_content)
-    combined = M(content, attributes)
+    combined = C(content, attributes)
     properties = P(raw_properties)
     none = Ratchet::Data::None.new
 

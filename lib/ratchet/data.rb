@@ -25,7 +25,7 @@ module Ratchet
       Combined.new(*args)
     end
     module_function :Combined
-    alias_method :M, :Combined
+    alias_method :C, :Combined
 
     def Properties(data)
       Properties.new(data)

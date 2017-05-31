@@ -51,7 +51,7 @@ class RenderingTest < Minitest::Test
 
   def test_coerces_raw_data_into_combined
     source = '<div data-prop="title">An Title</div>'
-    output = render(source, title: M('Ratchet', class: 'active'))
+    output = render(source, title: C('Ratchet', class: 'active'))
     assert_equal '<div data-prop="title" class="active">Ratchet</div>', output
   end
 
@@ -63,13 +63,13 @@ class RenderingTest < Minitest::Test
 
   def test_renders_combined_attributes_and_content
     source = '<a data-prop="link">An Link</a>'
-    output = render(source, P(link: M(T('Click me!'), A(href: '/'))))
+    output = render(source, P(link: C(T('Click me!'), A(href: '/'))))
     assert_equal '<a data-prop="link" href="/">Click me!</a>', output
   end
 
   def test_combined_data_with_nested_properties
     source = '<div data-prop="post"><span data-prop="title"><span></div>'
-    output = render(source, P(post: M(P(title: T('lolwat')), A(class: 'fancy'))))
+    output = render(source, P(post: C(P(title: T('lolwat')), A(class: 'fancy'))))
     assert_equal '<div data-prop="post" class="fancy"><span data-prop="title">lolwat</span></div>', output
   end
 
