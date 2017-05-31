@@ -49,6 +49,12 @@ class RenderingTest < Minitest::Test
     assert_equal '<div data-prop="title">Ratchet</div>', output
   end
 
+  def test_coerces_raw_data_into_combined
+    source = '<div data-prop="title">An Title</div>'
+    output = render(source, title: M('Ratchet', class: 'active'))
+    assert_equal '<div data-prop="title" class="active">Ratchet</div>', output
+  end
+
   def test_renders_tag_attributes
     source = '<a data-prop="link">Click me!</a>'
     output = render(source, P(link: A(href: '/')))

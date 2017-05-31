@@ -1,9 +1,11 @@
 module Ratchet
   module Data
     class Combined < Base
+      include Ratchet::Data
+
       def initialize(data, attributes)
-        @attributes = attributes
-        super(data)
+        @attributes = Attributes(attributes)
+        super(Data(data))
       end
 
       def ==(other)

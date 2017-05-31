@@ -44,4 +44,15 @@ class CombinedDataTest < Minitest::Test
     baz = Ratchet::Data::Combined.new(content, other_attributes)
     refute_equal foo, baz
   end
+
+  def test_raw_data_is_coerced
+    raw_content = 'haha'
+    raw_attributes = { lol: 'wat' }
+    content = Ratchet::Data::Content.new(raw_content)
+    attributes = Ratchet::Data::Attributes.new(raw_attributes)
+    foo = Ratchet::Data::Combined.new(raw_content, raw_attributes)
+    bar = Ratchet::Data::Combined.new(content, attributes)
+
+    assert_equal foo, bar
+  end
 end
