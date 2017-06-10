@@ -61,6 +61,20 @@ class RenderingTest < Minitest::Test
     assert_equal '<a data-prop="link" href="/">Click me!</a>', output
   end
 
+  def test_overwrites_tag_attributes
+    skip
+    source = '<a data-prop="link" href="#">Click me!</a>'
+    output = render(source, P(link: A(href: '/')))
+    assert_equal '<a data-prop="link" href="/">Click me!</a>', output
+  end
+
+  def test_merges_tag_attributes
+    skip
+    source = '<div data-prop="post" class="fancy">An Post</div>'
+    output = render(source, P(link: A(class: T("active", merge: true))))
+    assert_equal '<div data-prop="post" class="fancy active">An Post</div>', output
+  end
+
   def test_renders_combined_attributes_and_content
     source = '<a data-prop="link">An Link</a>'
     output = render(source, P(link: C(T('Click me!'), A(href: '/'))))
