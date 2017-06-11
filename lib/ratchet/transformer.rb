@@ -2,6 +2,8 @@ require 'temple'
 
 module Ratchet
   class Transformer < Temple::Filter
+    define_options(omit_missing: false)
+
     def on_nut_tag(scope, property, tag, attributes, children)
       if property
         build_dynamic(scope, property, tag, attributes, children)
@@ -25,17 +27,32 @@ module Ratchet
         :multi,
         [
           :block, "[#{scope}.property(#{property.inspect})].flatten.each do |#{property}|",
-          build_html_tag(
-            tag,
-            compile(attributes),
-            [
-              :if, "#{property}.content?",
-              [:escape, true, [:dynamic, property]],
-              compile(children),
-            ],
-          ),
+          conditionally(property) {
+            build_html_tag(
+              tag,
+              compile(attributes),
+              [
+                :if, "#{property}.content?",
+                [:escape, true, [:dynamic, property]],
+                compile(children),
+              ],
+            )
+          },
         ],
       ]
+    end
+
+    def conditionally(property)
+      html = yield
+      if options[:omit_missing]
+        [
+          :if, "#{property}.is_a?(Ratchet::Data::None)",
+          [:static, ''],
+          html,
+        ]
+      else
+        html
+      end
     end
 
     def build_static(scope, property, tag, attributes, children)

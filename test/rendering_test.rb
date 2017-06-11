@@ -8,9 +8,9 @@ class RenderingTest < Minitest::Test
 
   Context = Struct.new(:data)
 
-  def render(source, data = Ratchet::Data::None.new)
+  def render(source, data = Ratchet::Data::None.new, production = false)
     context = Context.new(data)
-    Ratchet::Templates::Tilt.new { source }.render(context)
+    Ratchet::Templates::Tilt.new(omit_missing: production) { source }.render(context)
   end
 
   def test_renders_basic_html
@@ -77,6 +77,12 @@ class RenderingTest < Minitest::Test
     source = '<div data-prop="title">An Title</div>'
     output = render(source)
     assert_equal source, output
+  end
+
+  def test_production_mode_omits_unbound_properties
+    source = '<div data-prop="foo">Foo</div><div data-prop="bar">Bar</div>'
+    output = render(source, { foo: 'lolwat' }, true)
+    assert_equal '<div data-prop="foo">lolwat</div>', output
   end
 
   def test_nested_properties

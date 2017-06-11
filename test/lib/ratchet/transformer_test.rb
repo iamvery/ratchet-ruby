@@ -23,6 +23,32 @@ class TransformerTest < Minitest::Test
     )
   end
 
+  def test_omit_missing
+    assert_transformed(
+      [:nut, :tag, :data, 'title', 'div', [:multi], [:static, 'Title']],
+      [
+        :multi,
+        [
+          :block, '[data.property("title")].flatten.each do |title|',
+          [
+            :if, 'title.is_a?(Ratchet::Data::None)',
+            [:static, ''],
+            [
+              :html, :tag, 'div',
+              [:multi],
+              [
+                :if, 'title.content?',
+                [:escape, true, [:dynamic, 'title']],
+                [:static, 'Title'],
+              ],
+            ],
+          ],
+        ],
+      ],
+      omit_missing: true,
+    )
+  end
+
   def test_attribute_preservation
     assert_transformed(
       [:nut, :attrs, nil, { foo: 'bar' }],
@@ -43,8 +69,8 @@ class TransformerTest < Minitest::Test
 
   private
 
-  def assert_transformed(source, expected)
-    actual = Ratchet::Transformer.new.call(source)
+  def assert_transformed(source, expected, omit_missing: false)
+    actual = Ratchet::Transformer.new(omit_missing: omit_missing).call(source)
     assert_equal expected, actual
   end
 end
